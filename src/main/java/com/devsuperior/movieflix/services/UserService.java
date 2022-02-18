@@ -34,6 +34,11 @@ public class UserService implements UserDetailsService{
 		User entity = obj.orElseThrow(() -> new ResourceNotFoundException("Entity not found"));
 		return new UserDTO(entity);
 	}
+
+	public UserDTO findCurrentUser() {
+		User user = authService.authenticated();
+		return new UserDTO(user);
+	}
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -46,4 +51,5 @@ public class UserService implements UserDetailsService{
 		logger.info("User found: " + username);
 		return user;
 	}
+
 }
